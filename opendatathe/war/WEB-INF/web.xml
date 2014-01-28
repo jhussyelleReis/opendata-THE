@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+
+	<welcome-file-list>
+	    <welcome-file>index.html</welcome-file>
+	</welcome-file-list>  
+	
+    <servlet-mapping>
+        <servlet-name>DatasetsServlet</servlet-name>
+        <url-pattern>/datasets</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DatasetsServlet</servlet-name>
+        <servlet-class>com.opendatathe.servlet.DatasetsServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>DatumServlet</servlet-name>
+        <url-pattern>/datum</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DatumServlet</servlet-name>
+        <servlet-class>com.opendatathe.servlet.DatumServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+    <servlet-name>Upload</servlet-name>
+    <servlet-class>com.opendatathe.servlet.Upload</servlet-class>
+  </servlet>
+    <servlet-mapping>
+    <servlet-name>Upload</servlet-name>
+    <url-pattern>/upload</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Serve</servlet-name>
+    <servlet-class>com.opendatathe.servlet.Serve</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Serve</servlet-name>
+    <url-pattern>/serve</url-pattern>
+  </servlet-mapping>
+</web-app>

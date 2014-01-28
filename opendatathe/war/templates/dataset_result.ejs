@@ -1,0 +1,8 @@
+<%	for(var i = 0; i < results.length; i++) { %>
+	<div class="ds_result">
+		<b><%= results[i].name %></b></br>
+		<%= results[i].description %></br>
+		<a href="/serve?blob-key=<%= results[i].blobKey %>">csv</a>|
+		<a href="#">json</a>
+	</div>
+<% } %>

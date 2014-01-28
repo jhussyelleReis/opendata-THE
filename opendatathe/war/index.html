@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Teresina - Portal de Dados Abertos</title>
+<link href="styles/main.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="ejs_production.js"> </script>
+<script>
+	function httpGet(theUrl, data)
+	{
+		var xmlHttp = new XMLHttpRequest();
+		xmlHttp.open( "GET", theUrl+"?data="+JSON.stringify(data), false );
+		xmlHttp.send(null);
+		return xmlHttp.responseText;
+	}
+	
+	function httpPut(theUrl, data)
+	{
+		var xmlHttp = new XMLHttpRequest();
+		xmlHttp.open( "PUT", theUrl, false );
+		var params = "data="+JSON.stringify(data);
+		xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlHttp.send(params);
+		return xmlHttp.responseText;
+	}
+	
+	$(function() {
+		loadContent('home');
+		
+		$("#main-menu a[rel='tab']").click(function(e){
+			pageurl = $(this).attr('href');
+			$.ajax({url:pageurl,success: function(data){
+				$('#content').html(data);
+			}});
+			
+			if(pageurl!=window.location){
+				window.history.pushState({path:pageurl},'',pageurl);
+			}
+			return false;
+		});
+	});
+	
+	$(window).bind('popstate', function() {
+		$.ajax({url:location.pathname+'?rel=tab',success: function(data){
+			$('#content').html(data);
+		}});
+	});
+	
+	function loadContent(content) {
+		$('#content').load('pages/'+content+'.html');
+	}
+	
+	function isJson(str) {
+	    try {
+	        JSON.parse(str);
+	    } catch (e) {
+	        return false;
+	    }
+	    return true;
+	}
+	
+	function loadDataset(dataset){
+		var jsobj = {'dataset':dataset};
+		var resp = httpGet("/data", jsobj);
+		if(isJson(resp)){
+			results = jQuery.parseJSON(resp);
+			renderDatasets(results);
+		}else {
+			$('#content').load('pages/list_dataset.html', function(){
+				$("#ds_results").append(resp); 
+			});
+		}
+	}
+	
+	function renderDatasets(results) {
+			$('#content').load('pages/list_dataset.html', function(){
+				var ds_results = new EJS({url:'templates/dataset_result.ejs?'+version}).render(results);
+				$("#ds_results").append(ds_results); 
+			});
+	};
+	
+	var results;  
+	var version = 1.2;
+</script>
+</head>
+<body>
+	<div id="header">
+		<div id="frame-logo">
+			<a href="#">
+				<img id="logo-portal" alt="Dados Abertos Teresina" src="images/logo-portal.png">
+			</a>
+			<a href="#">
+				<img id="logo-header" alt="Prefeitura Municipal de Teresina" src="images/pmt.png">
+			</a>
+		</div>
+	</div>
+	<div id="main-menu">
+		<ul>
+			<li><a href="datasets" rel="tab">Conjunto de Dados</a></li>
+			<li><a href="news" rel="tab">Notícias</a></li>
+			<li><a href="engaged" rel="tab">Contribua</a></li>
+			<li><a href="api" rel="tab">API</a></li>
+			<li><a href="contact" rel="tab">Contato</a></li>
+		</ul>
+	</div>
+	<!-- <div id="search">
+		<form action="/dataset">
+			<input type="text" class="search" placeholder="Palavras chave">
+			<button type="submit" value="search">Pesquisar</button>
+		</form>
+	</div> -->
+	<div id="content">
+		
+	</div>
+	<div id="footer"></div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Conjunto de Dados</title>
+<script>
+$(function() {
+	$('.category').click(function(e){
+		category = $(this).find('a').attr('href');
+		pageurl = 'datasets?catalog='+category;
+		$.ajax({url:pageurl,success: function(data){
+			if(isJson(data)){
+				results = jQuery.parseJSON(data);
+				renderDatasets(results);
+			}else {
+				$('#content').load('pages/list_dataset.html', function(){
+					$("#ds_results").append(data); 
+				});
+			}
+			
+			if(pageurl!=window.location){
+				window.history.pushState({path:pageurl},'',pageurl);
+			}
+		}});
+		return false;
+	});
+	
+    $('.category').bind("mouseover", function(){
+        var color  = $(this).css("background-color");
+
+        $(this).css("background", "#4238B8");
+
+        $(this).bind("mouseout", function(){
+            $(this).css("background", color);
+        })    
+    })   
+})
+</script>
+</head>
+<body>
+<div class="category-wrapper" id="content">
+			<div class="category" onClick="loadDataset('education')" style="cursor:hand;cursor: pointer;">
+				<a href="#educacao">
+				<img alt="Educacao" src="images/education.png">
+				<br>
+				Educação</a>
+			</div>
+			<div class="category" onClick="loadDataset('environment')" style="cursor:hand;cursor: pointer;">
+				<a href="#ambiente">
+				<img alt="Ambiente" src="images/environment.png">
+				<br>
+				Ambiente</a>
+			</div>
+			<div class="category" onClick="loadDataset('finance')" style="cursor:hand;cursor: pointer;">
+					<a href="#financas">
+					<img alt="Financas" src="images/finance.png">
+					<br>
+					Finanças</a>
+			</div>
+			<div class="category" style="cursor:hand;cursor: pointer;">
+				<a href="transporte">
+				<img alt="Transporte" src="images/transport.png">
+				<br>
+				Transporte</a>
+			</div>
+			<div class="category" onClick="loadDataset('socialservices')" style="cursor:hand;cursor: pointer;">
+				<a href="#servicossociais">
+				<img alt="Servicos Sociais" src="images/social.png">
+				<br>
+				Serviços Sociais</a>
+			</div>
+			<div class="category" onClick="loadDataset('health')" style="cursor:hand;cursor: pointer;">
+				<a href="#saude">
+				<img alt="Saude" src="images/health.png">
+				<br>
+			Saúde</a>
+			</div>
+			<div class="category" onClick="loadDataset('safety')" style="cursor:hand;cursor: pointer;">
+				<a href="#seguranca">
+				<img alt="Seguranca" src="images/security.png">
+				<br>
+				Segurança</a>
+			</div>
+			<div class="category" onClick="loadDataset('programs')" style="cursor:hand;cursor: pointer;">
+				<a href="#programas">
+				<img alt="Programas" src="images/exclamation.png">
+				<br>
+				Programas</a>
+			</div>
+			<div class="category" onClick="loadDataset('exports')" style="cursor:hand;cursor: pointer;">
+				<a href="#exportacoes">
+				<img alt="Exportacoes" src="images/exchange.png">
+				<br>
+				Exportações</a>
+			</div>
+			<div class="category" onClick="loadDataset('habitation')" style="cursor:hand;cursor: pointer;">
+				<a href="#moradia">
+				<img alt="Moradia" src="images/house.png">
+				<br>
+				Moradia</a>
+			</div>
+		</div>
+</body>
+</html>
