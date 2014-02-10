@@ -1,0 +1,76 @@
+@CHARSET "ISO-8859-1";
+
+#containerShow {
+	/*background-color: lightblue;*/
+	height: 70%;
+	padding-top: 0px;
+	padding-left: 5%;
+	padding-right: 5%;
+	margin-left: auto;
+	margin-right: auto;
+	/*text-align: center;*/
+	font-family: verdana;
+}
+
+#show {
+	background-color: #D8D8D8;
+	width: 100%;
+	height: 100%;
+}
+
+#show h3 {
+	text-align: left;
+	/*background-color: white;*/
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+}
+
+#showConteudo {
+	background-color: /*#F0FFF0 red */;
+	max-height: 80%;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 5px;
+	overflow: auto;
+}
+
+
+#showConteudoInter {
+	background-color: #D8D8D8;
+	margin-left: 0;
+	margin-right: 0;
+	/*background-color: blue;*/
+	min-width: 90%;
+	min-height: 50%;
+	font-size: 15px;
+	text-align: left;
+}
+
+#showConteudoInter table {
+	height: 100%;
+	width: 100%;
+	border-collapse: collapse;
+	border-color: #C1CDCD;
+	border: solid 2px #5F9EA0;
+	background-color: white;
+}
+
+#showConteudoInter table th {
+	text-align: left;
+	border: solid 2px #5F9EA0;
+	background-color: #BEBEBE;
+}
+
+#showConteudoInter table tr {
+	border: solid 2px #5F9EA0;
+	border-color: #C1CDCD;
+}
+
+#showConteudoInter table td {
+	width: 50%;
+	border-collapse: collapse;
+	border: solid 2px #5F9EA0;
+}
+

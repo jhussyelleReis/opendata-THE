@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Visualizar conjunto de dados</title>
+<link rel="stylesheet" type="text/css" href="styles/show.css" />
+<script type="text/javascript">
+		$(function(){
+			
+			//Check for the various File API support.
+			if (window.File && window.FileReader && window.FileList && window.Blob) {
+			  // Great success! All the File APIs are supported.
+			} else {
+			  alert('The FileReader() API are not fully supported in this browser.');
+			}
+			
+		});
+</script>
+</head>
+<body>
+	<div id="containerShow">
+		<div id=show>
+			<h3>Visualizacao 1 dataset de 1</h3>
+			<div id="showConteudo">
+				<div id="showConteudoInter"></div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>
