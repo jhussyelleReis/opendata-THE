@@ -16,9 +16,18 @@ public class Dataset implements Serializable {
 	private Long id;
 	private String name;
 	private String description;
-	private String fonte;
-	private String catalog;
+	private String source;
+	private String category;
 	private String blobKey;
+	private Boolean featured; 
+
+	public Boolean getFeatured() {
+		return featured;
+	}
+
+	public void setFeatured(Boolean featured) {
+		this.featured = featured;
+	}
 
 	public String getBlobKey() {
 		return blobKey;
@@ -52,20 +61,20 @@ public class Dataset implements Serializable {
 		this.description = description;
 	}
 
-	public String getFonte() {
-		return fonte;
+	public String getSource() {
+		return source;
 	}
 
-	public void setFonte(String fonte) {
-		this.fonte = fonte;
+	public void setSource(String source) {
+		this.source = source;
 	}
 
-	public String getCatalog() {
-		return catalog;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setCatalog(String catalog) {
-		this.catalog = catalog;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 }

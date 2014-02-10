@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Conjunto de Dados</title>
+<script>
+$(function() {
+	$('.category').click(function(e){
+		category = $(this).find('a').attr('href');
+		pageurl = 'datasets?category='+category;
+		$.ajax({url:pageurl,success: function(data){
+			if(isJson(data)){
+				results = jQuery.parseJSON(data);
+				renderDatasets(results);
+			}else {
+				$('#content').load('pages/list_dataset.html', function(){
+					$("#ds_results").append(data); 
+				});
+			}
+			
+			if(pageurl!=window.location){
+				window.history.pushState({path:pageurl},'',pageurl);
+			}
+		}});
+		return false;
+	});
+	
+	/* $.ajax(url:'/featured',success: function(data){
+		var datasets = JSON.parse(data);
+		for(var i=1; i < 5; i++){
+			$('#featured'+i).click(function(){
+				$.ajax(url:'/dataset?data={id:'+datasets[i].id+'}');
+			});
+		}
+	}); */
+	
+	/* $('img').on('load',function(){
+	    var css;
+	    var ratio=$(this).width() / $(this).height();
+	    var pratio=$(this).parent().width() / $(this).parent().height();
+	    if (ratio<pratio) css={width:'auto', height:'100%'};
+	    else css={width:'100%', height:'auto'};
+	    $(this).css(css);
+	}); */
+    /* $('.featured').bind("mouseover", function(){
+        $(this).css("cursor", "hand");
+    }); */  
+})
+</script>
+</head>
+<body>
+<!-- <div class="category-wrapper" id="content">
+			<div class="category" style="cursor:hand;cursor: pointer;">
+				<a href="educacao">
+				<img alt="Educacao" src="images/education.png">
+				<br>
+				Educação</a>
+			</div>
+			<div class="category" style="cursor:hand;cursor: pointer;">
+				<a href="ambiente">
+				<img alt="Ambiente" src="images/environment.png">
+				<br>
+				Ambiente</a>
+			</div>
+			<div class="category" style="cursor:hand;cursor: pointer;">
+					<a href="financas">
+					<img alt="Financas" src="images/finance.png">
+					<br>
+					Finanças</a>
+			</div>
+			<div class="category" style="cursor:hand;cursor: pointer;">
+				<a href="transporte">
+				<img alt="Transporte" src="images/transport.png">
+				<br>
+				Transporte</a>
+			</div>
+			<div class="category" style="cursor:hand;cursor: pointer;">
+				<a href="servicossociais">
+				<img alt="Servicos Sociais" src="images/social.png">
+				<br>
+				Serviços Sociais</a>
+			</div>
+			<div class="category" style="cursor:hand;cursor: pointer;">
+				<a href="saude">
+				<img alt="Saude" src="images/health.png">
+				<br>
+			Saúde</a>
+			</div>
+			<div class="category" style="cursor:hand;cursor: pointer;">
+				<a href="seguranca">
+				<img alt="Seguranca" src="images/security.png">
+				<br>
+				Segurança</a>
+			</div>
+			<div class="category" style="cursor:hand;cursor: pointer;">
+				<a href="programas">
+				<img alt="Programas" src="images/exclamation.png">
+				<br>
+				Programas</a>
+			</div>
+			<div class="category" style="cursor:hand;cursor: pointer;">
+				<a href="exportacoes">
+				<img alt="Exportacoes" src="images/exchange.png">
+				<br>
+				Exportações</a>
+			</div>
+			<div class="category" style="cursor:hand;cursor: pointer;">
+				<a href="moradia">
+				<img alt="Moradia" src="images/house.png">
+				<br>
+				Moradia</a>
+			</div>
+		</div> -->
+		<div id="frames">
+        	<div id="bigFrame" class="featured">
+        		<img alt="Imagem no Frame 1" src="images/featured/featured1.png">
+        	</div>
+        	<div id="topFrame" class="featured">
+        		<img alt="Imagem no Frame 2" src="images/featured/featured2.png" >
+        	</div>
+        	<div id="downleft" class="featured">
+        		<img alt="Imagem no Frame 3" src="images/featured/featured3.png">
+        	</div>
+        	<div id="downright" class="featured">
+        		<img alt="Imagem no Frame 4" src="images/featured/featured4.png">
+        	</div>
+        </div>
+    
+        <div id="searchBox">
+          	<center>
+        	<div id="divSearch">
+        		<span class="fa fa-search fa-lg" style="float:left; margin:1% 1% 0 1%;" ></span>
+        		<input type="text" id="textSearch" placeholder="Buscar..." />
+        		<button id="btnSearch" type="submit" value="search">Buscar</button>
+           	</div>
+           	</center>
+        </div>
+    
+    
+        <div id="container">
+        	<center>
+			    <div class=li>
+			        <center>
+			            <a href="" style="text-decoration: none;" >
+			            <span class="fa fa-briefcase fa-5x" style="clear='both;'"></span>
+			           </center>
+			        <center>Negócios</center>
+			        </a>
+			    </div>
+			
+			    <div class=li>
+			        <center>
+			            <a href="" style="text-decoration: none;">
+			            <span class="fa fa-leaf fa-5x" style="clear='both;'"></span>
+			        </center>
+			        <center>Ambiente</center>
+			        </a>
+			    </div>
+			
+			    <div class=li><center><a href="" style="text-decoration: none;"><span class="fa fa-user-md fa-5x" style="clear='both;'"></span></center><center>Saúde</center></a></div>
+			    <div class=li><center><a href="" style="text-decoration: none;"><span class="fa fa-home fa-5x" style="clear='both;'"></span></center><center>Moradia</center></a></div>
+			    <div class=li><center><a href="" style="text-decoration: none;"><span class="fa fa-book fa-5x" style="clear='both;'"></span></center><center>Educação</center></a></div>
+			    <div class=li><center><a href="" style="text-decoration: none;"><span class="fa fa-gamepad fa-5x" style="clear='both;'"></span></center><center>Lazer</center></a></div>
+			    <div class=li><center><a href="" style="text-decoration: none;"><span class="fa fa-truck fa-5x" style="clear='both;'"></span></center><center>Transporte</center></a></div>
+			    <div class=li><center><a href="" style="text-decoration: none;"><span class="fa fa-users fa-5x" style="clear='both;'"></span></center><center>Serviço Social</center></a></div>
+		    </center>
+        </div>
+		
+</body>
+</html>

@@ -7,8 +7,34 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
 	<welcome-file-list>
 	    <welcome-file>index.html</welcome-file>
-	</welcome-file-list>  
+	</welcome-file-list>
 	
+	<servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+        <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.opendatathe.servlet.LoginServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>DatasetsServlet</servlet-name>
+        <url-pattern>/datasets</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DatasetsServlet</servlet-name>
+        <servlet-class>com.opendatathe.servlet.DatasetsServlet</servlet-class>
+    </servlet>
+	<servlet-mapping>
+        <servlet-name>FeaturedServlet</servlet-name>
+        <url-pattern>/featured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>FeaturedServlet</servlet-name>
+        <servlet-class>com.opendatathe.servlet.FeaturedServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DatasetsServlet</servlet-name>
         <url-pattern>/datasets</url-pattern>
@@ -19,15 +45,42 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     </servlet>
     
     <servlet-mapping>
-        <servlet-name>DatumServlet</servlet-name>
-        <url-pattern>/datum</url-pattern>
+        <servlet-name>DatasetServlet</servlet-name>
+        <url-pattern>/dataset</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>DatumServlet</servlet-name>
-        <servlet-class>com.opendatathe.servlet.DatumServlet</servlet-class>
+        <servlet-name>DatasetServlet</servlet-name>
+        <servlet-class>com.opendatathe.servlet.DatasetServlet</servlet-class>
     </servlet>
     
+    <servlet-mapping>
+        <servlet-name>ContributionServlet</servlet-name>
+        <url-pattern>/contribuicao</url-pattern>
+    </servlet-mapping>
     <servlet>
+        <servlet-name>ContributionServlet</servlet-name>
+        <servlet-class>com.opendatathe.servlet.ContributionServlet</servlet-class>
+    </servlet>
+    
+    <filter>
+	    <description>Requires user to log in as a member</description>
+	    <filter-name>LoginFilter</filter-name>
+	    <filter-class>com.opendatathe.filter.LoginFilter</filter-class>
+	</filter>
+	<!-- <filter-mapping>
+	    <filter-name>LoginFilter</filter-name>
+	    <servlet-name>ContributionServlet</servlet-name>
+	</filter-mapping> -->
+	<!-- <filter>
+	    <filter-name>AjaxFilter</filter-name>
+	    <filter-class>com.opendatathe.filter.AjaxFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>AjaxFilter</filter-name>
+	    <servlet-name>/*</servlet-name>
+	</filter-mapping> -->
+
+	<servlet>
     <servlet-name>Upload</servlet-name>
     <servlet-class>com.opendatathe.servlet.Upload</servlet-class>
   </servlet>

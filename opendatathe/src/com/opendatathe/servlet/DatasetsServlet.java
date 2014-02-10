@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.opendatathe.entities.Dataset;
+import com.opendatathe.utils.JDOUtils;
 
 public class DatasetsServlet extends HttpServlet {
 	
@@ -20,9 +21,14 @@ public class DatasetsServlet extends HttpServlet {
 			throws ServletException, IOException {
 		JDOUtils jdo = new JDOUtils();
 		Gson gson = new Gson();
-		String catalog = req.getParameter("catalog");  
-		//Dataset dataset = gson.fromJson(catalog, Dataset.class); 
-		List<Dataset> result = jdo.findByAttribute(Dataset.class, "catalog", catalog);
+		String params = req.getParameter("data");   
+		Dataset dataset = gson.fromJson(params, Dataset.class);
+		List<Dataset> result = null;
+		if(dataset.getCategory() != null){
+			result = jdo.findByAttribute(Dataset.class, "category", dataset.getCategory());
+		}else if(dataset.getDescription() != null){
+			result = jdo.findByAttributeInAnyPosition(Dataset.class, "description", dataset.getDescription());
+		}
 		if (result != null && !result.isEmpty()) {
 			resp.getWriter().print(gson.toJson(result)); 
 		} else {

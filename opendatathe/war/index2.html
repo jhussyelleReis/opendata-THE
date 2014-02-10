@@ -3,19 +3,12 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<title>Teresina - Portal de Dados Abertos</title>
-	<link rel="stylesheet" type="text/css" href="styles/home.css" />
+<title>Teresina - Portal de Dados Abertos</title>
+<link rel="stylesheet" type="text/css" href="styles/home.css" />
     <link rel='stylesheet' type='text/css' href='styles/top_bar.css' />
-    <link rel='stylesheet' type='text/css' href='styles/list_datasets.css' />
     <!-- <link rel='stylesheet' type='text/css' href='styles/fonts/font-awesome.css' /> -->
     <link rel='stylesheet' type='text/css' href='https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css'>
-    <!-- <style type="text/css">
-		.li a:link {text-decoration:none;color:black;}
-		.li a:visited {text-decoration:none;color:black;}
-		.li a:active {text-decoration:none;color:#ff0000;}
-		.li a:hover {text-decoration:underline;color:white;}
-	</style> -->
-<script type="text/javascript" src="jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="ejs_production.js"> </script>
 <script>
 	function httpGet(theUrl, data)
@@ -47,17 +40,18 @@
 	
 	$(function() {
 		
-		loadContent('inicio');	
-		$("#cssmenu a[rel='tab']").click(function(e){
+		loadContent('home');
+		
+		$("#main-menu a[rel='tab']").click(function(e){
 			pageurl = $(this).attr('href');
-			loadContent(pageurl);
-			/* $.ajax({url:pageurl,success: function(data){
+			$.ajax({url:pageurl,success: function(data){
+				console.log(data);
 				$('#content').html(data);
-			}}); */
+			}});
 			
-			/* if(pageurl!=window.location){
+			if(pageurl!=window.location){
 				window.history.pushState({path:pageurl},'',pageurl);
-			} */
+			}
 			return false;
 
 			/* $(window).bind('popstate', function() {
@@ -82,69 +76,33 @@
 	    return true;
 	}
 	
-	/* function loadDataset(dataset){
+	function loadDataset(dataset){
 		var jsobj = {'dataset':dataset};
 		var resp = httpGet("/data", jsobj);
 		if(isJson(resp)){
 			results = jQuery.parseJSON(resp);
 			renderDatasets(results);
 		}else {
-			$('#content').load('pages/list_dataset.html', function(){//FIXME the server has to send always json as response
-				$("#DataContainer").append(resp); 
+			$('#content').load('pages/list_dataset.html', function(){
+				$("#ds_results").append(resp); 
 			});
 		}
-	} */
+	}
 	
 	function renderDatasets(results) {
 			$('#content').load('pages/list_dataset.html', function(){
 				var ds_results = new EJS({url:'templates/dataset_result.ejs?'+version}).render(results);
-				$("#dataContainer").append(ds_results); 
+				$("#ds_results").append(ds_results); 
 			});
 	};
 	
 	var results;  
-	
 	var version = 1.2;
-
-	/* BUILDING TABLE OF DATA */
-	function parseCSV(text, lineTerminator, cellTerminator) {
-
-		var table = $('<table>',{id:'dataset_table'});
-		//break the lines apart
-		var lines = text.split(lineTerminator);
-
-		for ( var j = 0; j < lines.length; j++) {
-			if (lines[j] != "") {
-				var tableRow;
-				if (j == 0) {
-					tableRow = $('<th>');
-				} else {
-					tableRow = $('<tr>');					
-				}
-					table.append(tableRow);
-				//split the rows at the cellTerminator character
-				var information = lines[j].split(cellTerminator);
-
-				for ( var k = 0; k < information.length; k++) {
-					var cell = $('<td>');
-					tableRow.append(cell);
-					cell.append(information[k]);
-				}
-			}
-		}
-		console.log(table);
-		return table;
-	}
-
-	function handleFile(f) {
-		
-		//var files = evt.target.files; // FileList object
-		// Loop through the FileList and populate the 'outputTable' with the data
-		//for (var i = 0, f; f = files[i]; i++) {
-		var table;
-				table = parseCSV(f, '\n', ';');
-		
-		return table;
+	
+	function showDataset(){
+		$('#content').load('pages/show.html', function(){
+			$('#show').append();
+		});
 	}
 </script>
 </head>
@@ -179,24 +137,25 @@
 	</div>
 	<div id="footer"></div>
 </body>-->
-<body >
+<body link="black" vlink="black" alink="black">
   <div class="container">
         <div id="topo">
             <div id='cssmenu'>
                 <ul>
                     <li class='has-sub'><a href="#"><span class="fa fa-user fa-2x"></span></a>
                         <ul>
-                            <li class='has-sub'><a href="login" rel="tab">Login</a></li>
-                            <li class='has-sub'><a href="signup" rel="tab">Cadastro</a></li>
+                            <li class='has-sub'><a href="#">Login</a>></li>
+                            <li class='has-sub'><a href="#">Cadastro</a></li>
                         </ul>
                     </li>
                
                    <li class='has-sub'><a href='#'><span class="fa fa-bars fa-2x"></span></a>
                       <ul>
-                         <li class='has-sub'><a href="inicio" rel="tab">Home</a></li>
-                         <li class='has-sub'><a href="sobre" rel="tab">Sobre</a></li>
-                         <li class='has-sub'><a href="ideias" rel="tab">Ideias</a></li>
-                         <li class='has-sub'><a href="contribuicao" rel="tab">Contribua</a></li>
+                         <li class='has-sub'><a href="#">Home</a></li>
+                         <li class='has-sub'><a href="#">Sobre</a></li>
+                         <li class='has-sub'><a href="#">Noticias</a></li>
+                         <li class='has-sub'><a href="#">Ideias</a></li>
+                         <li class='has-sub'><a href="#">Contatos</a></li>
                       </ul>
                     </li>
                 </ul>
@@ -204,37 +163,25 @@
         </div>
 		<div id="content"></div>
 		<div id="footer">
-					<div class="column">
-						<h4>Titulo maior uhu</h4>
-						<ul>
-							<li>Link maior teste</li>
-							<li>Link de quatro palavras</li>
-							<li>Link de cinco palavras agora</li>
-							<li>Link de cinco palavras agora</li>
-							<li>Link de cinco palavras agora</li>
-						</ul>
-					</div>
-					<div class="column">
-						<h4>Titulo</h4>
-						<ul>
-							<li>Link</li>
-							<li>Link</li>
-							<li>Link</li>
-							<li>Link</li>
-							<li>Link</li>
-						</ul>
-					</div>
-					<div class="column">
-						<h4>Titulo</h4>
-						<ul>
-							<li>Link</li>
-							<li>Link</li>
-							<li>Link</li>
-							<li>Link</li>
-							<li>Link</li>
-						</ul>
-					</div>
+			<div id="leftColumn">
+				<h3>Links Relacionados</h3><br>
+				<a href="http://dados.gov.br">Portal Nacional de Dados</a><br>
+				<a href="#">Mais um link aqui</a><br>
+				<a href="#">Outro aqui</a>
 			</div>
+			<div id="centerColumn">
+				<h3>Outra secao</h3><br>
+				<a href="#">Link Link</a><br>
+				<a href="#">Mais um link aqui</a><br>
+				<a href="#">Outro aqui</a>
+			</div>
+			<div id="rightColumn">
+				<h3>Ultima Secao</h3><br>
+				<a href="#">Link Link</a><br>
+				<a href="#">Mais um link aqui</a><br>
+				<a href="#">Outro aqui</a>
+			</div>
+		</div>
     </div>
   </body>
 

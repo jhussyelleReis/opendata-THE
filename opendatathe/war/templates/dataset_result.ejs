@@ -1,8 +1,15 @@
 <%	for(var i = 0; i < results.length; i++) { %>
-	<div class="ds_result">
-		<b><%= results[i].name %></b></br>
-		<%= results[i].description %></br>
-		<a href="/serve?blob-key=<%= results[i].blobKey %>">csv</a>|
-		<a href="#">json</a>
+	<div class="dataset">
+		<div class="dataTitle">
+					<div class="dataTitleText"><%= results[i].name %></div>
+		</div>
+		<div class="dataInter">
+					<%= results[i].description %>
+					<div class="buttons">
+						<!--<button class="btn" type="submit" value="download" onclick="downloadDataset('<%= results[i].blobKey %>')">Download</button>-->
+						<a href="serve?blobKey=<%= results[i].blobKey %>">Download</a>
+						<button class="btn" type="submit" value="visualizar" onclick="showDataset(<%= results[i].id %>)">Visualizar</button>
+					</div>
+		</div>
 	</div>
 <% } %>
