@@ -1,4 +1,4 @@
-<%	for(var i = 0; i < 4; i++) { %>
+<%	for(var i = 0; i < results.length; i++) { %>
 	<div class="dataset">
 		<div class="dataTitle">
 					<div class="dataTitleText"><%= results[i].name %></div>
@@ -7,7 +7,7 @@
 					<%= results[i].description %>
 					<div class="buttons">
 						<!--<button class="btn" type="submit" value="download" onclick="downloadDataset('<%= results[i].blobKey %>')">Download</button>-->
-						<a href="serve?blobKey=<%= results[i].blobKey %>">Download</a>
+						<a href="serve?blob-key=<%= results[i].blobKey %>">Download</a>
 						<button class="btn" type="submit" value="visualizar" onclick="showDataset(<%= results[i].id %>)">Visualizar</button>
 					</div>
 		</div>

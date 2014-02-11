@@ -1,16 +1,12 @@
 package com.opendatathe.servlet;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.codec.digest.DigestUtils;
 
 import com.google.gson.Gson;
 import com.opendatathe.entities.User;
@@ -23,8 +19,6 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		System.out
-				.println(resp.encodeURL(req.getContextPath() + "/testok"));;
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/login_signup.html");
 		requestDispatcher.forward(req, resp);
 	}

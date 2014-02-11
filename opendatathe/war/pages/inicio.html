@@ -6,20 +6,22 @@
 <script type="text/javascript" src="scripts/search.js"></script>
 <script>
 $(function() {
-	$.ajax({url:'/featured', success: function(response){
+	$.ajax({url:'/resource/featured', success: function(response){
 		var result = jQuery.parseJSON(response);
 		var featured_ds = new EJS({url:'templates/featured.ejs?'+version}).render({result:result});
-		$("#externalFrame").append(featured_ds); 
+		$("#externalFrame").html(featured_ds); 
 	}});
 	
 	var version = 1.5;
 	
 	$('.featured a').click(function(e){
 			var dsid = $(this).attr('href');
-			$.ajax({url:'/dataset?data={id:'+dsid+'}', success: function(result){//FIXME can throw: Uncaught TypeError: Cannot read property 'id' of undefined 
+			$.ajax({url:'/resource/dataset?data={id:'+dsid+'}', success: function(result){//FIXME can throw: Uncaught TypeError: Cannot read property 'id' of undefined
+				console.log(result);
 				$('#content').load('pages/show.html', function(){
+					console.log("loaded");
 					var table = handleFile(result);
-					$('#showConteudoInter').append(table);
+					$('#showConteudoInter').html(table);
 				});
 			}});
 	}); 
@@ -73,14 +75,14 @@ $(function() {
 			    </div>
 			    
 			    <div class=li>
-			    	<a href="educacao" style="text-decoration: none;">
+			    	<a href="educacao" style="text-decoration: none;" class="category">
 			    		<span class="fa fa-book fa-5x" style="clear='both;'"></span>
 			    		<div class="nameCategory">Educação</div>
 			    	</a>
 			    </div>
 			    
 			    <div class=li>
-			    	<a href="lazer" style="text-decoration: none;">
+			    	<a href="lazer" style="text-decoration: none;" class="category">
 			    		<span class="fa fa-gamepad fa-5x" style="clear='both;'"></span>
 			    		<div class="nameCategory">Lazer</div>
 			    	</a>
@@ -94,7 +96,7 @@ $(function() {
 			    </div>
 			    
 			    <div class=li>
-			    	<a href="servico_social" style="text-decoration: none;">
+			    	<a href="servico_social" style="text-decoration: none;" class="category">
 			    	<span class="fa fa-users fa-5x" style="clear='both;'"></span>
 			    	<div class="nameCategory">Serviço Social</div>
 			    	</a>

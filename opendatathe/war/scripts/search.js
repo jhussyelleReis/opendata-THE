@@ -1,6 +1,6 @@
 $('#btnSearch').click(function(e){
 		var name = $('#textSearch').val();
-		$.ajax({url:"/datasets?data={name:'"+name+"'}",success: function(data){
+		$.ajax({url:"/resource/datasets?data={name:'"+name+"'}",success: function(data){
 			if(isJson(data)){
 				results = jQuery.parseJSON(data);
 				renderDatasets(results);
@@ -14,7 +14,7 @@ $('#btnSearch').click(function(e){
 
 $('.category').click(function(e){
 	category = $(this).attr('href');
-	pageurl = 'datasets?data={category:'+category+'}';
+	pageurl = '/resource/datasets?data={category:'+category+'}';
 	$.ajax({url:pageurl,success: function(data){
 		if(isJson(data)){
 			results = jQuery.parseJSON(data);

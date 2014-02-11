@@ -44,20 +44,4 @@ public class DatasetServlet extends HttpServlet{
 		resp.getWriter().write(TransformInputTypes.inputStreamToString(Channels.newInputStream(readChannel)));
 	}
 
-	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		JDOUtils jdo = new JDOUtils();
-		String data = req.getParameter("data"); 
-		Gson gson =  new Gson();
-		Dataset datum = gson.fromJson(data, Dataset.class); 
-//		List<Datum> data = jdo.findByAttribute(Datum.class, "name", datum.getName());
-//		if(data == null || data.isEmpty()){
-			jdo.save(datum); 
-			resp.getWriter().print(gson.toJson(datum));
-//		}else{
-//			resp.getWriter().print(gson.toJson("Ja existe este dado no conjunto."));
-//		}
-	}
-
 }

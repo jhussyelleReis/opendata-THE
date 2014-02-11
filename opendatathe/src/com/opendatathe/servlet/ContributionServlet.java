@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
-import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.util.List;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -70,10 +70,12 @@ public class ContributionServlet extends HttpServlet {
 		                }
 		                field.set(dataset, fieldvalue);//FIXME create transformer, search for library
 		            } else {
-		                // Process form file field (input type="file").
-		                String filename = FilenameUtils.getName(item.getName());
-		                if(item.getFieldName().equals(FILE )){
-		                	dataset.setBlobKey(sendData(item.getInputStream()).getKeyString());
+		                String fileName = FilenameUtils.getName(item.getName());
+//		                String typeFromName = URLConnection.guessContentTypeFromName(item.getName());
+//		                MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
+//						String contentType = fileTypeMap.getContentType(item.getName());
+		                if(item.getFieldName().equals(FILE )){//TODO check for type first
+		                	dataset.setBlobKey(sendData(item.getInputStream(), fileName, "text/csv").getKeyString());//FIXME maybe we can get string directly, instead of inputStream
 		                }
 		            }
 	        	}
@@ -95,13 +97,13 @@ public class ContributionServlet extends HttpServlet {
 		resp.getWriter().write(new Gson().toJson(dataset));
 	}
 
-	private BlobKey sendData(InputStream inputStream) {
+	private BlobKey sendData(InputStream inputStream, String fileName, String mimeType) {
 		// Get a file service
 		FileService fileService = FileServiceFactory.getFileService();
 		BlobKey blobKey = null;
 		try {
 			// Create a new Blob file with mime-type "text/plain"
-			AppEngineFile file = fileService.createNewBlobFile("text/csv");//TODO check for type first
+			AppEngineFile file = fileService.createNewBlobFile(mimeType, fileName);
 	
 			// Open a channel to write to it
 			boolean lock = false;
@@ -139,4 +141,8 @@ public class ContributionServlet extends HttpServlet {
 		return blobKey;
 	}
 
+	public static void main(String[] args) {
+		MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
+		fileTypeMap.getContentType("");
+	}
 }

@@ -29,10 +29,10 @@ a:hover {
 <script type="text/javascript">
 	function showDataset(id) {
 		$.ajax({
-			url : '/dataset?data={id:' + id + '}',success : function(result) { 
+			url : '/resource/dataset?data={id:' + id + '}',success : function(result) { 
 				$('#content').load('pages/show.html', function() {
 					var table = handleFile(result);
-					$('#show').append(table);
+					$('#show').html(table);
 				});
 			}
 		});
@@ -48,14 +48,15 @@ a:hover {
 	<div id="category">
 		<div id="list">
 			<ul>
+			<!-- FIXME this could be done by selecting just a div with class or id 'category' and selecting the nested anchor -->
 				<li><a href="negocios" class="category">Negocios</a></li>
-				<li><a href="ambiente">Ambiente</a></li>
-				<li><a href="saude">Saude</a></li>
-				<li><a href="moradia">Moradia</a></li>
-				<li><a href="educacao">Educacao</a></li>
-				<li><a href="lazer">Lazer</a></li>
+				<li><a href="ambiente" class="category">Ambiente</a></li>
+				<li><a href="saude" class="category">Saude</a></li>
+				<li><a href="moradia" class="category">Moradia</a></li>
+				<li><a href="educacao" class="category">Educacao</a></li>
+				<li><a href="lazer" class="category">Lazer</a></li>
 				<li><a href="transporte" class="category">Transporte</a></li>
-				<li><a href="servico_social">Servico Social</a></li>
+				<li><a href="servico_social" class="category">Servico Social</a></li>
 			</ul>
 		</div>
 	</div>

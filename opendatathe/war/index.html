@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 
 <html>
   <head>
@@ -48,30 +48,31 @@
 	$(function() {
 		
 		loadContent('inicio');	
+		
 		$("#cssmenu a[rel='tab']").click(function(e){
 			pageurl = $(this).attr('href');
 			loadContent(pageurl);
-			/* $.ajax({url:pageurl,success: function(data){
-				$('#content').html(data);
-			}}); */
-			
-			/* if(pageurl!=window.location){
-				window.history.pushState({path:pageurl},'',pageurl);
-			} */
 			return false;
-
-			/* $(window).bind('popstate', function() {
-				$.ajax({url:location.pathname+pageurl,success: function(data){
-					$('#content').html(data);
-				}});
-			}); */
 		});
-		
+	
+	});
+	$(window).bind('pushstate', function() {
+		$.ajax({url:location.pathname, success: function(data){
+			$('#content').html(data);
+		}});
+	}); 
+	$(window).bind('popstate', function() {
+		$.ajax({url:location.pathname,success: function(data){
+			$('#content').html(data);
+		}});
+		return true;
 	});
 	
-	function loadContent(content) {
-		$('#content').load('pages/'+content+'.html');
+	function loadContent(resource) {
+		$('#content').load('pages/'+resource+'.html');
+		window.history.pushState({path:resource},'',resource);
 	}
+
 	
 	function isJson(str) {
 	    try {
@@ -98,7 +99,7 @@
 	function renderDatasets(results) {
 			$('#content').load('pages/list_dataset.html', function(){
 				var ds_results = new EJS({url:'templates/dataset_result.ejs?'+version}).render(results);
-				$("#dataContainer").append(ds_results); 
+				$("#dataContainer").html(ds_results); 
 			});
 	};
 	

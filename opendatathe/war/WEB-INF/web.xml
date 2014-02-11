@@ -11,8 +11,8 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/login</url-pattern>
-        <url-pattern>/signup</url-pattern>
+        <url-pattern>resource/login</url-pattern>
+        <url-pattern>resource/signup</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
@@ -21,7 +21,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     
     <servlet-mapping>
         <servlet-name>DatasetsServlet</servlet-name>
-        <url-pattern>/datasets</url-pattern>
+        <url-pattern>resource/datasets</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>DatasetsServlet</servlet-name>
@@ -29,7 +29,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     </servlet>
 	<servlet-mapping>
         <servlet-name>FeaturedServlet</servlet-name>
-        <url-pattern>/featured</url-pattern>
+        <url-pattern>resource/featured</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>FeaturedServlet</servlet-name>
@@ -37,7 +37,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     </servlet>
     <servlet-mapping>
         <servlet-name>DatasetsServlet</servlet-name>
-        <url-pattern>/datasets</url-pattern>
+        <url-pattern>resource/datasets</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>DatasetsServlet</servlet-name>
@@ -46,7 +46,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     
     <servlet-mapping>
         <servlet-name>DatasetServlet</servlet-name>
-        <url-pattern>/dataset</url-pattern>
+        <url-pattern>resource/dataset</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>DatasetServlet</servlet-name>
@@ -55,12 +55,29 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     
     <servlet-mapping>
         <servlet-name>ContributionServlet</servlet-name>
-        <url-pattern>/contribuicao</url-pattern>
+        <url-pattern>resource/contribuicao</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>ContributionServlet</servlet-name>
         <servlet-class>com.opendatathe.servlet.ContributionServlet</servlet-class>
+    </servlet>`
+    
+    <servlet>
+        <servlet-name>StartServlet</servlet-name>
+        <servlet-class>com.opendatathe.servlet.StartServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>StartServlet</servlet-name>
+        <url-pattern>/inicio</url-pattern>
+    </servlet-mapping> 
+    <!-- <servlet>
+        <servlet-name>HtmlServlet</servlet-name>
+        <servlet-class>com.opendatathe.servlet.HtmlServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HtmlServlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping> -->
     
     <filter>
 	    <description>Requires user to log in as a member</description>
