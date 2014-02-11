@@ -1,0 +1,7 @@
+<% for(var i = 1; i <= result.length; i++) { %>
+<div id="featured<%= i %>" class="featured">
+	<a href="<%= result[i-1].id %>">
+		<img alt="Imagem no Frame <%= i %>" src="images/featured/featured<%= i %>.png">
+	</a>
+</div>
+<% } %>

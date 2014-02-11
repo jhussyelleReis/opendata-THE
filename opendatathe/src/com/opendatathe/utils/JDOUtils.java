@@ -91,15 +91,6 @@ public class JDOUtils {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T> List<T> findByAttributeInAnyPosition(Class<T> class1, String attribute, String value) {
-		// TODO mudar para prepared query
-		String query = "select from " + class1.getName() + " where " + attribute + " == \"%" + value + "%\"";
-		System.out.println(query);
-		List<T> list = (List<T>) pm.newQuery(query).execute();
-		return list;
-	}
-	
-	@SuppressWarnings("unchecked")
 	public <T> List<T> findByAttribute(Class<T> class1, String attribute, Boolean value) {
 		// TODO mudar para prepared query
 		String query = "select from " + class1.getName() + " where " + attribute + " == " + value;

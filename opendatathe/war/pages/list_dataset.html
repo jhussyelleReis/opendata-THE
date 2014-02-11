@@ -25,11 +25,11 @@ a:hover {
 	color: white;
 }
 </style>
+<script type="text/javascript" src="scripts/search.js"></script>
 <script type="text/javascript">
 	function showDataset(id) {
 		$.ajax({
-			url : '/dataset?data={id:' + id + '}',
-			success : function(result) {//FIXME can throw: Uncaught TypeError: Cannot read property 'id' of undefined 
+			url : '/dataset?data={id:' + id + '}',success : function(result) { 
 				$('#content').load('pages/show.html', function() {
 					var table = handleFile(result);
 					$('#show').append(table);
@@ -37,10 +37,10 @@ a:hover {
 			}
 		});
 	}
-	function downloadDataset(key) {
+	/* function downloadDataset(key) {
 		var doc = $.ajax({url:'/serve?blobKey='+key});
 		window.open(doc);
-	}
+	} */
 </script>
 </head>
 <body>
@@ -48,23 +48,23 @@ a:hover {
 	<div id="category">
 		<div id="list">
 			<ul>
-				<li><a href="">Negocios</a></li>
-				<li><a href="">Ambiente</a></li>
-				<li><a href="">Saude</a></li>
-				<li><a href="">Moradia</a></li>
-				<li><a href="">Educacao</a></li>
-				<li><a href="">Lazer</a></li>
-				<li><a href="">Transporte</a></li>
-				<li><a href="">Servico Social</a></li>
+				<li><a href="negocios" class="category">Negocios</a></li>
+				<li><a href="ambiente">Ambiente</a></li>
+				<li><a href="saude">Saude</a></li>
+				<li><a href="moradia">Moradia</a></li>
+				<li><a href="educacao">Educacao</a></li>
+				<li><a href="lazer">Lazer</a></li>
+				<li><a href="transporte" class="category">Transporte</a></li>
+				<li><a href="servico_social">Servico Social</a></li>
 			</ul>
 		</div>
 	</div>
 	<div id="searchBox">
 		<div id="divSearch">
 			<span class="fa fa-search fa-lg"
-				style="float: left; margin: 1% 1% 0 1%;"></span> <input type="text"
-				id="textSearch" placeholder="Buscar..." />
-			<button id="btnSearch" type="submit" value="search">Buscar</button>
+				style="float: left; margin: 1% 1% 0 1%;"></span> 
+				<input type="text" id="textSearch" placeholder="Buscar..." />
+			<button id="btnSearch" value="search">Buscar</button>
 		</div>
 	</div>
 

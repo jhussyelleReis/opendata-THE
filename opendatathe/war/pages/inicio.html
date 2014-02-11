@@ -3,74 +3,34 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Conjunto de Dados</title>
+<script type="text/javascript" src="scripts/search.js"></script>
 <script>
 $(function() {
-	$('.category').click(function(e){
-		category = $(this).attr('href');
-		pageurl = 'datasets?data={category:'+category+'}';
-		$.ajax({url:pageurl,success: function(data){
-			if(isJson(data)){
-				results = jQuery.parseJSON(data);
-				renderDatasets(results);
-			}else {
-				$('#content').load('pages/list_dataset.html', function(){//FIXME the server has to send always json as response
-					$("#dataContainer").append(data); 
-				});
-			}
-			
-			if(pageurl!=window.location){
-				window.history.pushState({path:'categoria/'+pageurl},'',pageurl);
-			}
-		}});
-		return false;
-	});
+	$.ajax({url:'/featured', success: function(response){
+		var result = jQuery.parseJSON(response);
+		var featured_ds = new EJS({url:'templates/featured.ejs?'+version}).render({result:result});
+		$("#externalFrame").append(featured_ds); 
+	}});
 	
-	$('.featured').click(function(e){//TODO refine the way this functionality is done.
-		$.ajax({url:'/featured',success: function(data){
-			var datasets = JSON.parse(data);
-			for(var i=0; i < 1; i++){
-					$.ajax({url:'/dataset?data={id:'+datasets[i].id+'}', success: function(result){//FIXME can throw: Uncaught TypeError: Cannot read property 'id' of undefined 
-						$('#content').load('pages/show.html', function(){
-							var table = handleFile(result);
-							$('#showConteudoInter').append(table);
-						});
-					}});
-			}
-		}});
-	});
+	var version = 1.5;
 	
-	$('#btnSearch').click(function(e){
-		var description = $('#textSearch').val();
-		console.log(description);
-		$.ajax({url:'/datasets?data={description:'+description+'}',success: function(data){
-			if(isJson(data)){
-				results = jQuery.parseJSON(data);
-				renderDatasets(results);
-			}else {
-				$('#content').load('pages/list_dataset.html', function(){//FIXME the server has to send always json as response
-					$("#dataContainer").append(data); 
+	$('.featured a').click(function(e){
+			var dsid = $(this).attr('href');
+			$.ajax({url:'/dataset?data={id:'+dsid+'}', success: function(result){//FIXME can throw: Uncaught TypeError: Cannot read property 'id' of undefined 
+				$('#content').load('pages/show.html', function(){
+					var table = handleFile(result);
+					$('#showConteudoInter').append(table);
 				});
-			}
-		}});
-	});
+			}});
+	}); 
+
 });
 </script>
 </head>
 <body>
 		<div id="frames">
 			<div id="externalFrame">
-        		<div id="featured1" class="featured">
-	        		<img alt="Imagem no Frame 1" src="images/featured/featured1.png">
-	        	</div>
-	        	<div id="featured2" class="featured">
-	        		<img alt="Imagem no Frame 2" src="images/featured/featured2.png" >
-	        	</div>
-	        	<div id="featured3" class="featured">
-	        		<img alt="Imagem no Frame 3" src="images/featured/featured3.png">
-	        	</div>
-	        	<div id="featured4" class="featured">
-	        		<img alt="Imagem no Frame 4" src="images/featured/featured4.png">
-	        	</div>
+        		
         	</div>
         </div>
     
@@ -85,42 +45,42 @@ $(function() {
     
         <div id="container">
 			    <div class=li>
-			       	<a href="" style="text-decoration: none;" class="category">
+			       	<a href="negocios" style="text-decoration: none;" class="category">
 			            <span class="fa fa-briefcase fa-5x" style="clear='both;'"></span>
 			        	<div class="nameCategory">Negócios</div>
 			        </a>
 			    </div>
 			
 			    <div class=li>
-			        <a href="" style="text-decoration: none;" class="category">
+			        <a href="ambiente" style="text-decoration: none;" class="category">
 			            <span class="fa fa-leaf fa-5x" style="clear='both;'"></span>
-			        	<div class="nameCategory">Ambientes</div>
+			        	<div class="nameCategory">Ambiente</div>
 			        </a>
 			    </div>
 			
 			    <div class=li>
-			    	<a href="" style="text-decoration: none;" class="category">
+			    	<a href="saude" style="text-decoration: none;" class="category">
 			    		<span class="fa fa-user-md fa-5x" style="clear='both;'"></span>
 			    		<div class="nameCategory">Saúde</div>
 			    	</a>
 			    </div>
 			    
 			    <div class=li>
-			    	<a href="" style="text-decoration: none;" class="category">
+			    	<a href="moradia" style="text-decoration: none;" class="category">
 			    		<span class="fa fa-home fa-5x" style="clear='both;'"></span>
 			    		<div class="nameCategory">Moradia</div>
 			    	</a>
 			    </div>
 			    
 			    <div class=li>
-			    	<a href="" style="text-decoration: none;">
+			    	<a href="educacao" style="text-decoration: none;">
 			    		<span class="fa fa-book fa-5x" style="clear='both;'"></span>
 			    		<div class="nameCategory">Educação</div>
 			    	</a>
 			    </div>
 			    
 			    <div class=li>
-			    	<a href="" style="text-decoration: none;">
+			    	<a href="lazer" style="text-decoration: none;">
 			    		<span class="fa fa-gamepad fa-5x" style="clear='both;'"></span>
 			    		<div class="nameCategory">Lazer</div>
 			    	</a>
@@ -134,7 +94,7 @@ $(function() {
 			    </div>
 			    
 			    <div class=li>
-			    	<a href="" style="text-decoration: none;">
+			    	<a href="servico_social" style="text-decoration: none;">
 			    	<span class="fa fa-users fa-5x" style="clear='both;'"></span>
 			    	<div class="nameCategory">Serviço Social</div>
 			    	</a>

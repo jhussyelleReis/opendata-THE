@@ -26,8 +26,8 @@ public class DatasetsServlet extends HttpServlet {
 		List<Dataset> result = null;
 		if(dataset.getCategory() != null){
 			result = jdo.findByAttribute(Dataset.class, "category", dataset.getCategory());
-		}else if(dataset.getDescription() != null){
-			result = jdo.findByAttributeInAnyPosition(Dataset.class, "description", dataset.getDescription());
+		}else if(dataset.getName() != null){
+			result = jdo.findByAttribute(Dataset.class, "name", dataset.getName());
 		}
 		if (result != null && !result.isEmpty()) {
 			resp.getWriter().print(gson.toJson(result)); 
